@@ -214,6 +214,7 @@ class Sentral {
       res = await global.site.get("$url/attendance/overview");
       resDash = res;
       await this.getCalender();
+      //   this.newGetTodayCal();
       await this.getUserInfo();
 
       return true;
