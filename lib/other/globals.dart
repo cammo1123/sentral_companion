@@ -11,3 +11,5 @@ SharedPreferences data;
 bool loggedIn;
 TextEditingController password;
 Session site;
+BuildContext context;
+String version = "v0.0.1-alpha";

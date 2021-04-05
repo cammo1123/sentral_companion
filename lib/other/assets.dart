@@ -23,16 +23,5 @@ class DashButton extends StatelessWidget {
       title: Text(label),
       subtitle: Text(subtitle),
     );
-    // return ListTile(
-    //   leading: CircleAvatar(
-    //     backgroundColor: Color.fromARGB(100, 187, 134, 252),
-    //     child: Icon(
-    //       Icons.settings,
-    //       color: Color.fromARGB(255, 187, 134, 252),
-    //     ),
-    //   ),
-    //   title: Text("Settings"),
-    //   onTap: () {},
-    // );
   }
 }
