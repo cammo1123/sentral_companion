@@ -1,8 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sentral_companion/pages/account_page.dart';
+import 'package:sentral_companion/restart.dart';
 import 'other/globals.dart' as global;
 
 import 'package:sentral_companion/pages/login_page.dart';
@@ -36,7 +35,11 @@ void main() async {
 
   global.loggedIn = await global.sentral.login(user, pass);
 
-  runApp(MyApp());
+  if (!global.loggedIn) {
+    runApp(RestartWidget());
+  } else {
+    runApp(LoginPage());
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -105,6 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     contextT = context;
+    global.context = context;
 
     if (global.loggedIn == false) {
       loginPagePopup();

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'dart:ui';
 import 'package:sentral_companion/main.dart';
+import 'package:sentral_companion/restart.dart';
 
 import '../other/globals.dart' as global;
 
@@ -116,27 +117,9 @@ class FormCard extends StatelessWidget {
                     ]),
                 child: Material(
                   color: Colors.transparent,
-                  child: InkWell(
-                    onTap: () async {
-                      bool success = await global.sentral
-                          .login(global.username.text, global.password.text);
-
-                      global.data.setString('user', global.username.text);
-                      global.data.setString('pass', global.password.text);
-
-                      if (success) {
-                        await global.sentral
-                            .login(global.username.text, global.password.text);
-                        mainPage();
-                      } else {
-                        final snackBar = SnackBar(
-                          content: Text('Login Failed'),
-                        );
-
-                        // Find the Scaffold in the widget tree and use
-                        // it to show a SnackBar.
-                        Scaffold.of(context).showSnackBar(snackBar);
-                      }
+                  child: FlatButton(
+                    onPressed: () async {
+                      await myFunction(context);
                     },
                     child: Center(
                       child: Text("SIGNIN",
@@ -154,5 +137,30 @@ class FormCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+Future<void> myFunction(BuildContext context) async {
+  bool success =
+      await global.sentral.login(global.username.text, global.password.text);
+
+  global.data.setString('user', global.username.text);
+  global.data.setString('pass', global.password.text);
+
+  if (success) {
+    await global.sentral.login(global.username.text, global.password.text);
+    //RestartWidget.restartApp(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (contextT) => MyHomePage()),
+    );
+  } else {
+    final snackBar = SnackBar(
+      content: Text('Login Failed'),
+    );
+
+    // Find the Scaffold in the widget tree and use
+    // it to show a SnackBar.
+    Scaffold.of(context).showSnackBar(snackBar);
   }
 }

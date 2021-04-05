@@ -216,7 +216,6 @@ class Sentral {
       await this.getCalender();
       //   this.newGetTodayCal();
       await this.getUserInfo();
-
       return true;
     } else {
       print("Login Failed");
@@ -299,22 +298,35 @@ class Sentral {
             "https://web2.pittwater-h.schools.nsw.edu.au/portal/attendance/overview"))
         .body;
 
+    var term1 = 0.0;
+    var term2 = 0.0;
+    var term3 = 0.0;
+    var term4 = 0.0;
+
     xpath = XPath.source(body);
-    var one = xpath.query("//div/div[6]/p[1]/span[1]").get();
-    var term1 = double.parse(
-        one.replaceAll(RegExp('<span.*">'), "").replaceAll("%</span>", ""));
 
-    var two = xpath.query("//div/div[6]/p[2]/span[1]").get();
-    var term2 = double.parse(
-        two.replaceAll(RegExp('<span.*">'), "").replaceAll("%</span>", ""));
+    try {
+      var one = xpath.query("//div/div[6]/p[1]/span[1]").get();
+      term1 = double.parse(
+          one.replaceAll(RegExp('<span.*">'), "").replaceAll("%</span>", ""));
+    } catch (FormatException) {}
+    try {
+      var two = xpath.query("//div/div[6]/p[2]/span[1]").get();
+      term2 = double.parse(
+          two.replaceAll(RegExp('<span.*">'), "").replaceAll("%</span>", ""));
+    } catch (FormatException) {}
 
-    var three = xpath.query("//div/div[6]/p[3]/span[1]").get();
-    var term3 = double.parse(
-        three.replaceAll(RegExp('<span.*">'), "").replaceAll("%</span>", ""));
+    try {
+      var three = xpath.query("//div/div[6]/p[3]/span[1]").get();
+      term3 = double.parse(
+          three.replaceAll(RegExp('<span.*">'), "").replaceAll("%</span>", ""));
+    } catch (FormatException) {}
 
-    var four = xpath.query("//div/div[6]/p[4]/span[1]").get();
-    var term4 = double.parse(
-        four.replaceAll(RegExp('<span.*">'), "").replaceAll("%</span>", ""));
+    try {
+      var four = xpath.query("//div/div[6]/p[4]/span[1]").get();
+      term4 = double.parse(
+          four.replaceAll(RegExp('<span.*">'), "").replaceAll("%</span>", ""));
+    } catch (FormatException) {}
 
     var o = xpath.query("//div/div[6]/p[5]/span[1]").get();
     var overall = double.parse(
@@ -403,6 +415,22 @@ class Sentral {
           //! Due to nature of above script we have to add ProperPeriod after FakePeriod
 
           today[properPeriod.period] = properPeriod;
+
+          //! Due to nature of below script we have to add ProperPeriod before FakePeriod
+
+          temp = periods[now.weekday][periods[now.weekday].indexOf(period) + 1]
+              .period;
+          if (temp.contains(RegExp("[A-Z][0-9]"))) {
+            var fakePeriod = new Period();
+            curperiod = temp;
+            fakePeriod.period = curperiod;
+            fakePeriod.room = "";
+            fakePeriod.subject = "";
+            fakePeriod.periodString = "$curperiod";
+            fakePeriod.subjectString = "";
+
+            today[temp] = fakePeriod;
+          }
         }
       }
       i = i + 1;

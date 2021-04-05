@@ -14,64 +14,61 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPage extends State<LoginPage> {
-  double _topPadding;
-
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context,
         designSize: Size(750, 1334), allowFontScaling: true);
-
-    _topPadding = (ScreenUtil().screenHeight / 2 - ScreenUtil().setHeight(250));
-
-    return Scaffold(
-      body: Builder(
-        builder: (context) => Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Image.asset(
-                  "assets/sentral_dash.png",
-                ),
-                Expanded(
-                  child: Container(),
-                ),
-              ],
-            ),
-            SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.only(left: 28.0, right: 28.0, top: 77.5),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Image.asset(
-                          "assets/sentral.png",
-                          width: ScreenUtil().setWidth(110),
-                          height: ScreenUtil().setHeight(110),
-                        ),
-                        Text(
-                          "Sentral\nCompanion".toUpperCase(),
-                          style: TextStyle(
-                            fontFamily: "PoppinsBold",
-                            fontSize: ScreenUtil().setSp(46),
-                            letterSpacing: .6,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
+    return Material(
+      child: Scaffold(
+        body: Builder(
+          builder: (context) => Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Image.asset(
+                    "assets/sentral_dash.png",
+                  ),
+                  Expanded(
+                    child: Container(),
+                  ),
+                ],
+              ),
+              SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 28.0, right: 28.0, top: 77.5),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Image.asset(
+                            "assets/sentral.png",
+                            width: ScreenUtil().setWidth(110),
+                            height: ScreenUtil().setHeight(110),
                           ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: ScreenUtil().setHeight(180),
-                    ),
-                    FormCard(),
-                  ],
+                          Text(
+                            "Sentral\nCompanion".toUpperCase(),
+                            style: TextStyle(
+                              fontFamily: "PoppinsBold",
+                              fontSize: ScreenUtil().setSp(46),
+                              letterSpacing: .6,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: ScreenUtil().setHeight(180),
+                      ),
+                      FormCard(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
